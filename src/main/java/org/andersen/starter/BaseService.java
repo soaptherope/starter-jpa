@@ -1,31 +1,19 @@
 package org.andersen.starter;
 
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
+import java.util.List;
 import java.util.Optional;
 
-@Service
-public class BaseService<T extends BaseEntity> {
+public interface BaseService<T extends BaseEntity> {
 
-    private final BaseRepository<T> baseRepository;
+    T save(T entity);
 
-    public BaseService(BaseRepository<T> baseRepository) {
-        this.baseRepository = baseRepository;
-    }
+    Optional<T> getById(Long id);
 
-    public T save(T entity) {
-        return baseRepository.save(entity);
-    }
+    List<T> getAll();
 
-    public Optional<T> findById(Long id) {
-        return baseRepository.findById(id);
-    }
+    void delete(Long id);
 
-    public void delete(Long id) {
-        baseRepository.deleteById(id);
-    }
-
-    public Iterable<T> findAll() {
-        return baseRepository.findAll();
-    }
+    List<T> getAllSorted(Sort sort);
 }
